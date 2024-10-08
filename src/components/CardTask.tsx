@@ -1,30 +1,29 @@
 import { useEffect, useState } from "react"
 import { useTask } from "../hook/useTask"
+import DeleteTaskButton from "./buttons/DeleteTaskButton"
+import UpdateTaskButton from "./buttons/UpdateTaskButton"
 
 export interface propsCardTask {
   id: number
   name: string
   done: boolean
-  taskUpdateSend: () => void
-  statusTask: () => void
-  taskDeleteSend: () => void
 }
 
-export default function CardTask({ id, name, done, taskUpdateSend, statusTask, taskDeleteSend }: propsCardTask) {
+export default function CardTask({ id, name, done }: propsCardTask) {
   const { updateTaskStatus } = useTask();
-  // Estado local paralelo al status de la card
+
   const [completed, setCompleted] = useState<boolean>(done);
 
-  // Sincroniza estado local "completed" con estado "done" cada cambio en done actualiza estado local completed
+  // Sincronizar de servicio con estado local
   useEffect(() => {
     setCompleted(done);
   }, [done]);
 
+
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>, id: number) => {
     const isCheck = e.target.checked
-    setCompleted(isCheck)    // estado local
-    await updateTaskStatus(id, isCheck) // servicio
-    statusTask() // notificacion al padre del cambio
+    setCompleted(isCheck)
+    await updateTaskStatus(id, isCheck)
   }
 
   return (
@@ -45,12 +44,8 @@ export default function CardTask({ id, name, done, taskUpdateSend, statusTask, t
         </div>
       </aside>
       <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto transition font-semibold">
-        <button
-          onClick={taskUpdateSend}
-          className='hover:bg-slate-300 bg-slate-100 text-zinc-900 p-2 rounded-lg active:scale-95 outline outline-slate-200 hover:outline-slate-100'>✏️ editar</button>
-        <button
-          onClick={taskDeleteSend}
-          className='hover:bg-red-900 bg-red-800 text-white p-2 rounded-lg active:scale-95 outline outline-red-900 hover:outline-red-800'>❌ eliminar</button>
+        <UpdateTaskButton id={id} name={name} done={done} />
+        <DeleteTaskButton id={id} />
       </div>
     </section>
   )

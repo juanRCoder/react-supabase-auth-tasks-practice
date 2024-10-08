@@ -1,33 +1,37 @@
-import { useEffect, useState } from "react";
 import { createdTask, deletedTask, getedTasks, updatedTask, updateStatusTask } from "../services/supabase.services";
 import { Tasks } from "../interfaces/tasks.interface";
+import { useStore } from "../zustand/Store";
+import { useCallback } from "react";
+
 
 
 export function useTask() {
-  const [tasks, setTasks] = useState<Tasks[]>()
+  const { setTasks } = useStore();
 
-  const getTasks = async () => {
+  // evitar re-renders, al momento de montar o llamar a getTasks
+  const getTasks = useCallback(async () => {
     const data = await getedTasks();
     setTasks(data);
-  }
+  }, [setTasks]);
+
+  
   const deleteTask = async (id: number | undefined) => {
     await deletedTask(id || 0)
     await getTasks();
   }
   const createTask = async (data: Tasks) => {
     await createdTask(data)
+    await getTasks();
   }
   const updateTask = async (taskId: number | undefined, data: Tasks) => {
     await updatedTask(taskId || 0, data);
+    await getTasks();
   };
 
   const updateTaskStatus = async (id: number, status: boolean) => {
     await updateStatusTask(id, status);
+    await getTasks();
   }
 
-  useEffect(() => {
-    getTasks()
-  }, [])
-
-  return {tasks, getTasks, deleteTask, createTask, updateTask, updateTaskStatus}
+  return { getTasks, deleteTask, createTask, updateTask, updateTaskStatus }
 }

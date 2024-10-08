@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import useAuth from "../hook/useAuth";
+import { useStore } from "../zustand/Store";
 
-export default function DataUser({ setCurrentEmail }: { setCurrentEmail: (email: string) => void }) {
+export default function DataUser() {
+  const setEmailUser = useStore((state) => state.setEmailUser);
+
   const { user, signOutWithOAuth } = useAuth();
   const [first, setfirst] = useState<boolean>(false);
 
   useEffect(() => {
-    setCurrentEmail(user?.email || "")
-  }, [user, setCurrentEmail])
+    setEmailUser(user?.email || "")
+  }, [user, setEmailUser])
 
   return (
     <section className='mx-auto flex justify-center mt-10'>
