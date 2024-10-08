@@ -2,11 +2,11 @@
 <div style="text-align: center; display: flex; gap: 10px">
   <img 
     src="https://opengraph.b-cdn.net/production/images/1c0aec97-a5b4-4f19-801a-0269cf4d4fef.png?token=XdbbSHklk2Pw5r8aBvYAouYJCazJLIU-wWaAj0tWBcc&height=572&width=1022&expires=33264417211"
-    height="400"
+    height="200"
   />
     <img 
     src="src/assets/mobile-crud.png"
-    height="400"
+    height="200"
   />
 </div>
 
