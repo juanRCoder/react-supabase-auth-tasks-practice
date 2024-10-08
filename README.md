@@ -1,5 +1,5 @@
 # CRUD-AUTH-SUPABASE-REACT
-<div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+<div style="display: flex; gap: 10px; justify-content: center; align-items: center; width: 100%">
   <img 
     src="https://opengraph.b-cdn.net/production/images/1c0aec97-a5b4-4f19-801a-0269cf4d4fef.png?token=XdbbSHklk2Pw5r8aBvYAouYJCazJLIU-wWaAj0tWBcc&height=572&width=1022&expires=33264417211"
     height="250"
