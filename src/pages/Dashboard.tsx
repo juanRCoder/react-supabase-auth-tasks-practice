@@ -11,10 +11,7 @@ export default function Dashboard() {
   const { toggleModal } = useStore();
   const { getTasks } = useTask();
 
-  useEffect(() => {
-    getTasks()
-  }, [getTasks])
-
+  useEffect(() => { getTasks() }, [getTasks])
 
   return (
     <main className='max-w-7xl mx-auto'>
